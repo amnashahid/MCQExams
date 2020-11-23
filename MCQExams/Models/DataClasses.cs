@@ -12,9 +12,10 @@ namespace MCQExams.Models
     {
         public ProDbContext(DbContextOptions<ProDbContext> options ):base(options)
         { }
-        DbSet<Category> Categories { get; set; }
-        DbSet<Question> Questions { get; set; }
-        DbSet<Option> Options { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Questionair> Questionairs { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Option> Options { get; set; }
 
     }
     public class Category
@@ -27,15 +28,26 @@ namespace MCQExams.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
     }
+    public class Questionair
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public TimeSpan Duration { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
+        public List<Question> Questions { get; set; }
+
+    }
     public class Question
     {
         [Key]
         public int Id { get; set; }
 
         public string Qt { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
 
+        public List<Option> Options { get; set; }
     }
     public class Option
     {
